@@ -1,0 +1,13 @@
+Package: cachifyR
+Type: Package
+Title: An R package to make a function use a cache
+Version: 0.1
+Date: 2017-05-18
+Authors@R: person("Frank", "Binder", email = "frank_binder@gmx.de", role = c("aut", "cre"))
+Description: This package hosts one function that turns a regular function into
+    a caching functions. There are also some functions to control the cache.
+License: GPL
+ByteCompile: TRUE
+Depends:
+    digest
+RoxygenNote: 6.0.1
