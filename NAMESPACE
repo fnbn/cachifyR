@@ -2,6 +2,9 @@
 
 export(cachify)
 export(getCacheDir)
+export(isCacheLocked)
+export(lockCache)
 export(setCacheDir)
 export(uncachify)
+export(unlockCache)
 import(digest)

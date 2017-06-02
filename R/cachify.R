@@ -24,6 +24,11 @@ cachify <- function(f, cacheDir, debug=FALSE) {
   readFromCache <- function(hash) {
     readRDS(paste0(cacheDir, '/', hash, '.Rds'))$res
   }
+
+  # is cache locked?
+  cacheIsLocked <- function() {
+    file.exists(paste0(cacheDir, '/locked'))
+  }
   
   if (!'cachified' %in% names(attributes(f))) {
     # get argument list
@@ -50,8 +55,12 @@ cachify <- function(f, cacheDir, debug=FALSE) {
         if(isCached(hash)) {
           res <- readFromCache(hash)
         } else {
-          res <- f()
-          writeToCache(hash, list(), res)
+          if(cacheIsLocked()) {
+            stop('Cache is locked and function needs evaluation')
+          } else {
+            res <- f()
+            writeToCache(hash, list(), res)
+          }
         }
   
         return(res)
@@ -68,9 +77,13 @@ cachify <- function(f, cacheDir, debug=FALSE) {
         if(isCached(hash)) {
           res <- readFromCache(hash)
         } else {
-          res <- do.call(f, eval_args[2:length(eval_args)])
-          writeToCache(hash, eval_args[2:length(eval_args)], res)
+          if(cacheIsLocked()) {
+            stop('Cache is locked and function needs to be evaluated')
+          } else {
+            res <- do.call(f, eval_args[2:length(eval_args)])
+            writeToCache(hash, eval_args[2:length(eval_args)], res)
           }
+        }
         return(res)
       }
     }
