@@ -20,8 +20,6 @@ No return. The original function with name \code{f} is replaced by the cachified
 cachify turns a function into a caching function
 }
 \details{
-ATTENTION: will always assign the new function to \code{.GlobalEnv}, 
+Will always assign the new function to \code{.GlobalEnv}, 
          no matter where the original binding of the function was.
-         This can be changed by setting \code{pos = pryr::where(get(f))} in the assign statement.
-         See http://adv-r.had.co.nz/Environments.html#function-envs.
 }
