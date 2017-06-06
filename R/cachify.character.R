@@ -9,9 +9,9 @@
 cachify.character <- function(f, cacheDir, debug=FALSE) {
   
   if(!exists(f)) stop(sprintf("'%s' is not a valid function name.", f))
-                      
+
   assign(x     = f, 
-         value = cachify(f = get(f), cacheDir = cacheDir),
+         value = cachify(f = get(f, pos = parent.frame(n = 1)), cacheDir = cacheDir),
          pos   = .GlobalEnv)## Will always assign the new function to \code{.GlobalEnv}, 
                             ## no matter where the original binding of the function was.
                             ## This can be changed by setting pos = pryr::where(get(f))
