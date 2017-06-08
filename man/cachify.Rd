@@ -19,3 +19,7 @@ The cachified function. Cachifistic!
 \description{
 cachify turns a function into a caching function
 }
+\details{
+ATTENTION: functions that are called for their side-effects become
+         unusable without error!
+}

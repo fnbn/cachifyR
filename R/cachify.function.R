@@ -4,7 +4,7 @@
 #' @param cacheDir A directory where the results of the function are stored.
 #' @return The cachified function. Cachifistic!
 #' @import digest
-#' @S3method cachify function
+#' @export
 cachify.function <- function(f, cacheDir, debug=FALSE) {
   
   # internal functions
