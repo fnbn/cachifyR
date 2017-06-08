@@ -5,17 +5,17 @@
 #' @return No return. The original function with name \code{f} is replaced by the cachified version
 #' @details Will always assign the new function to \code{.GlobalEnv}, 
 #'          no matter where the original binding of the function was.
-#' @S3method cachify character
+#' @export
 cachify.character <- function(f, cacheDir, debug=FALSE) {
   
   if(!exists(f)) stop(sprintf("'%s' is not a valid function name.", f))
 
-  assign(x     = f, 
-         value = cachify(f = get(f, pos = parent.frame(n = 1)), cacheDir = cacheDir),
-         pos   = .GlobalEnv)## Will always assign the new function to \code{.GlobalEnv}, 
-                            ## no matter where the original binding of the function was.
-                            ## This can be changed by setting pos = pryr::where(get(f))
-                            ## See http://adv-r.had.co.nz/Environments.html#function-envs.)
+  replaceFunctionByReference(name     = f,
+                             newFunc  = cachify(f        = get(f, pos = parent.frame(n = 1)), 
+                                                cacheDir = cacheDir, 
+                                                debug    = debug), 
+                             startEnv = parent.frame(n = 1))
   
   return(invisible(NULL))
+  
 }
