@@ -11,7 +11,7 @@ cachify.function <- function(f, cacheDir, debug=FALSE) {
   
   # is the hash cashed already?
   isCached <- function(hash) {
-    paste0(hash, '.Rds') %in% dir(cacheDir, pattern='^[a-f0-9]{32}.Rds$')
+    file.exists(paste0(cacheDir, '/', hash, '.Rds'))
   }
   
   # write to cache
